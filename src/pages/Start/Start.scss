@@ -1,0 +1,35 @@
+.start {
+    text-align: center;
+
+    img {
+        width: 100%;
+        object-fit: cover;
+        margin-bottom: 10%;
+    }
+
+    article {
+        h1 {
+            font-family: "Roboto Medium";
+            color: #4a503d;
+            font-size: 2rem;
+            margin-bottom: 5%;
+        }
+
+        p {
+            padding: 0 10%;
+
+            a {
+                color: #e28f83;
+                text-transform: uppercase;
+            }
+        }
+
+        p:first-of-type {
+            margin-bottom: 20%;
+        }
+
+        p:last-of-type {
+            margin: 10% 0;
+        }
+    }
+}
