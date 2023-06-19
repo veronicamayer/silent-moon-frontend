@@ -1,23 +1,21 @@
+// --------------------------------------------- IMPORT PACKAGES
 import { useState, useEffect } from "react";
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
+// --------------------------------------------- IMPORT PAGES
 import MusicOverview from "../MusicOverview/MusicOverview";
 import MeditationDetails from "../MeditationDetails/MeditationDetails";
 import SpotifyLogin from "../SpotifyLogin/SpotifyLogin";
-import Cookies from "universal-cookie";
-import { useParams } from "react-router-dom";
-
-const cookies = new Cookies();
 
 const SpotifyStart = () => {
+    // --------------------------------------------- STATES
     const [accessToken, setAccessToken] = useState();
     const [loading, setLoading] = useState(true);
-
+    // --------------------------------------------- CONST VARIABLES
     // der code wird von der Spotify Login Seite zurückgegeben. Wenn er hier leer bleibt wird die SpotifyLogin component gerendert
     const code = new URLSearchParams(window.location.search).get("code");
-
     const storedReferrer = localStorage.getItem("referrer")?.replace("-", "/");
-
-    console.log("referrer in start: " + storedReferrer);
-
+    // --------------------------------------------- USE EFFECTS
     useEffect(() => {
         const login = async () => {
             // wenn ein code vorhandne ist, wird im backend ein access token angefordert und in den cookies gespeichert
@@ -61,9 +59,17 @@ const SpotifyStart = () => {
         };
         login();
     }, [code]);
-
+    // --------------------------------------------- RETURN
     if (loading) {
-        return null;
+        return (
+            <>
+                <div className="lds-ripple">
+                    <div></div>
+                    <div></div>
+                </div>
+                <Navigation />
+            </>
+        );
     }
 
     if (accessToken) {

@@ -1,10 +1,17 @@
-import { Link, useNavigate } from "react-router-dom";
+// --------------------------------------------- IMPORT PACKAGES
+import { useNavigate } from "react-router-dom";
+// --------------------------------------------- IMPORT COMPONENTS
 import Navigation from "../../components/Navigation/Navigation";
+// --------------------------------------------- IMPORT ASSETS
 import SpotifyLoginImg from "../../assets/images/SpotifyLogin.png";
+// --------------------------------------------- IMPORT CSS
 import "./SpotifyLogin.scss";
 
 const SpotifyLogin = () => {
-    const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=ab15df07233441198e07735bdb853e7b&response_type=code&redirect_uri=${import.meta.env.VITE_FRONTEND}spotify/login&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state`;
+    /* Redirect URL to open the spotify login page */
+    const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=ab15df07233441198e07735bdb853e7b&response_type=code&redirect_uri=${
+        import.meta.env.VITE_FRONTEND
+    }spotify/login&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state`;
 
     const nav = useNavigate();
     const goBack = () => {
@@ -14,7 +21,6 @@ const SpotifyLogin = () => {
     return (
         <section id="spotifyLogin">
             <p className="logo light">SILENT MOON</p>
-
             <article id="spotifyLoginHeader">
                 <div>
                     <img src={SpotifyLoginImg} alt="" />

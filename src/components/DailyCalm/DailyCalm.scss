@@ -1,0 +1,24 @@
+.dailyCalm {
+    background-color: #fbf2db;
+    background-image: url(../../assets/images/DailyCalm.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    margin: 5%;
+    padding: 5%;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-between;
+
+    h3 {
+        font-size: 1.1rem;
+    }
+
+    p {
+        font-size: 0.9rem;
+    }
+
+    img {
+        object-fit: contain;
+    }
+}

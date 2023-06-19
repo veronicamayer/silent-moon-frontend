@@ -1,27 +1,18 @@
-import { useRef, useState } from "react";
-import { userState } from "../../state/userState";
-import "./Reminder.scss";
+// --------------------------------------------- IMPORT PACKAGES
+import { useState } from "react";
 import { Link } from "react-router-dom";
+// --------------------------------------------- IMPORT COMPONENTS
 import TimePicker from "../../components/TimePicker/TimePicker";
+import DayPicker from "../../components/DayPicker/DayPicker";
+// --------------------------------------------- IMPORT CSS
+import "./Reminder.scss";
 
 const Reminder = () => {
-    const time = useRef();
-    const [SU, toggleSU] = useState(false);
-    const [M, toggleM] = useState(false);
-    const [T, toggleT] = useState(false);
-    const [W, toggleW] = useState(false);
-    const [TH, toggleTH] = useState(false);
-    const [F, toggleF] = useState(false);
-    const [S, toggleS] = useState(false);
+    /* states to save the selected day and time */
     const [selectedTime, setSelectedTime] = useState(null);
+    const [selectedDays, setSelectedDays] = useState([]);
 
-    console.log(selectedTime);
-    const user = userState((state) => state.user);
-
-    const handleTimeSelection = (time) => {
-        setSelectedTime(time);
-    };
-
+    /* backend route */
     const saveReminder = async () => {
         try {
             const response = await fetch(
@@ -36,13 +27,7 @@ const Reminder = () => {
                     },
                     body: JSON.stringify({
                         time: selectedTime,
-                        su: SU,
-                        m: M,
-                        t: T,
-                        w: W,
-                        th: TH,
-                        f: F,
-                        s: S,
+                        days: selectedDays,
                     }),
                 }
             );
@@ -65,70 +50,15 @@ const Reminder = () => {
                 You can choose any time you want. We recommend one session in
                 the morning.
             </p>
-            <TimePicker onTimeSelection={handleTimeSelection} />
+            <TimePicker setSelectedTime={setSelectedTime} />
             <h2>Which day would you like to meditate?</h2>
             <p className="p_grey">
                 Everyday is best, but we recommend picking at least five.
             </p>
-            <div>
-                <button
-                    onClick={() => {
-                        toggleSU(!SU);
-                    }}
-                    className={SU ? "day_active" : "day"}
-                >
-                    SU
-                </button>
-                <button
-                    onClick={() => {
-                        toggleM(!M);
-                    }}
-                    className={M ? "day_active" : "day"}
-                >
-                    M
-                </button>
-                <button
-                    onClick={() => {
-                        toggleT(!T);
-                    }}
-                    className={T ? "day_active" : "day"}
-                >
-                    T
-                </button>
-                <button
-                    onClick={() => {
-                        toggleW(!W);
-                    }}
-                    className={W ? "day_active" : "day"}
-                >
-                    W
-                </button>
-                <button
-                    onClick={() => {
-                        toggleTH(!TH);
-                    }}
-                    className={TH ? "day_active" : "day"}
-                >
-                    TH
-                </button>
-                <button
-                    onClick={() => {
-                        toggleF(!F);
-                    }}
-                    className={F ? "day_active" : "day"}
-                >
-                    F
-                </button>
-                <button
-                    onClick={() => {
-                        toggleS(!S);
-                    }}
-                    className={S ? "day_active" : "day"}
-                >
-                    S
-                </button>
-            </div>
-
+            <DayPicker
+                selectedDays={selectedDays}
+                setSelectedDays={setSelectedDays}
+            />
             <div className="flex">
                 <Link
                     onClick={saveReminder}

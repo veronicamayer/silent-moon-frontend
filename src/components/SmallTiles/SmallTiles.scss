@@ -1,0 +1,42 @@
+.smallTiles {
+    display: flex;
+    gap: 2%;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    padding: 0 5% 5% 5%;
+
+    a {
+        width: 35vw;
+
+        video,
+        img {
+            width: 35vw;
+            height: 13vh;
+            object-fit: cover;
+            border-radius: 10px;
+            object-position: bottom center;
+        }
+
+        h3 {
+            font-size: 1rem;
+            line-height: 1.3em;
+            max-height: 2.7em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        div {
+            justify-content: space-between;
+            padding: 0;
+
+            p {
+                font-size: 0.7rem;
+            }
+        }
+    }
+}
+div::-webkit-scrollbar {
+    display: none;
+}

@@ -1,21 +1,30 @@
+// --------------------------------------------- IMPORT PACKAGES
 import { useNavigate, useParams } from "react-router-dom";
-import "./YogaDetails.scss";
 import { useState, useRef, useEffect } from "react";
+// --------------------------------------------- IMPORT ZUSTAND
+import { userState } from "../../state/userState";
+// --------------------------------------------- IMPORT COMPONENTS
 import Navigation from "../../components/Navigation/Navigation";
-import PlayButton from "../../assets/images/PlayButton.png";
-import PauseButton from "../../assets/images/PauseButton.png";
 import BackButton from "../../components/BackButton/BackButton";
 import LikeButton from "../../components/LikeButton/LikeButton";
-import { userState } from "../../state/userState";
+// --------------------------------------------- IMPORT CSS
+import "./YogaDetails.scss";
+// --------------------------------------------- IMPORT ASSETS
+import PlayButton from "../../assets/images/PlayButton.png";
+import PauseButton from "../../assets/images/PauseButton.png";
 
 const YogaDetails = () => {
+    // --------------------------------------------- STATES
     const [selectedVideo, setSelectedVideo] = useState([]);
-    const [favoriteVideo, setFavoriteVideo] = useState([]);
-
+    const [isButtonVisible, setIsButtonVisible] = useState(true);
+    const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+    // --------------------------------------------- VARIABLES
     let { videoId } = useParams();
     const nav = useNavigate();
     const setUser = userState((state) => state.setUser);
-
+    const videoRef = useRef(null);
+    const buttonRef = useRef(null);
+    // --------------------------------------------- USE EFFECTS
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -28,6 +37,7 @@ const YogaDetails = () => {
                 );
                 if (response.ok) {
                     const data = await response.json();
+                    console.log(data);
                     setSelectedVideo(data);
                 } else {
                     const result = response.json();
@@ -39,15 +49,10 @@ const YogaDetails = () => {
                 console.error("Error fetching video:", error);
             }
         };
-
         fetchData();
     }, []);
 
-    const videoRef = useRef(null);
-    const buttonRef = useRef(null);
-    const [isButtonVisible, setIsButtonVisible] = useState(true);
-    const [isVideoPlaying, setIsVideoPlaying] = useState(false);
-
+    // --------------------------------------------- CALL FUNCTIONS
     const handlePlayClick = () => {
         if (videoRef.current) {
             if (videoRef.current.paused) {
@@ -67,113 +72,15 @@ const YogaDetails = () => {
         }
     };
 
-    const addFavorite = async (video) => {
-        try {
-            const response = await fetch(
-                import.meta.env.VITE_BACKEND +
-                    import.meta.env.VITE_API_VERSION +
-                    "/user/addYogaFav",
-                {
-                    method: "POST",
-                    credentials: "include",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ favorite: video }),
-                }
-            );
-            if (response.ok) {
-                const data = await response.json();
-                console.log("favorite saved");
-                fetchUserDetails();
-            } else {
-                const result = response.json();
-                throw new Error("Error saving favorite: " + result);
-            }
-        } catch (error) {
-            console.error("Error saving favorite:", error);
-        }
-    };
-
-    const deleteFavorite = async (video) => {
-        try {
-            const response = await fetch(
-                import.meta.env.VITE_BACKEND +
-                    import.meta.env.VITE_API_VERSION +
-                    "/user/deleteYogaFav",
-                {
-                    method: "DELETE",
-                    credentials: "include",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ favorite: video }),
-                }
-            );
-            if (response.ok) {
-                const data = await response.json();
-                console.log("favorite deleted");
-                fetchUserDetails();
-            } else {
-                const result = response.json();
-                throw new Error("Error deleting favorite: " + result);
-            }
-        } catch (error) {
-            console.error("Error deleting favorite:", error);
-        }
-    };
-
-    useEffect(() => {
-        fetchUserDetails();
-    }, []);
-
-    const fetchUserDetails = async () => {
-        try {
-            const response = await fetch(
-                import.meta.env.VITE_BACKEND +
-                    import.meta.env.VITE_API_VERSION +
-                    "/user/details",
-                { credentials: "include" }
-            );
-            if (response.ok) {
-                const data = await response.json();
-                setFavoriteVideo(data.favoriteYoga);
-            } else {
-                const result = response.json();
-                throw new Error("Error getting user details");
-            }
-        } catch (error) {
-            console.error("Error getting user details: ", error);
-        }
-    };
-
-    const containsObject = (array, id) => {
-        for (let i = 0; i < array.length; i++) {
-            if (array[i]._id === id) {
-                return true;
-            }
-        }
-        return false;
-    };
-
+    // --------------------------------------------- RETURN
     return (
         <section id="yogaDetails">
             <BackButton addClass="fill" />
+            <LikeButton
+                resourceType={"yoga"}
+                selectedResource={selectedVideo._id}
+            />
 
-            <button
-                className={`likeButton ${
-                    favoriteVideo &&
-                    containsObject(favoriteVideo, selectedVideo._id)
-                        ? "liked"
-                        : ""
-                }`}
-                onClick={() =>
-                    favoriteVideo &&
-                    containsObject(favoriteVideo, selectedVideo._id)
-                        ? deleteFavorite(selectedVideo)
-                        : addFavorite(selectedVideo)
-                }
-            ></button>
             <article className="yogaVideo">
                 {selectedVideo.url && (
                     <video

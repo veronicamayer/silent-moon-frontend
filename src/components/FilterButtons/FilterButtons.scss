@@ -1,0 +1,26 @@
+.filterButtons {
+    display: flex;
+    justify-content: space-between;
+    padding: 5% 5%;
+
+    button {
+        border: none;
+        width: 20%;
+        background-color: white;
+        text-align: center;
+
+        img {
+            width: 80%;
+            height: 63%;
+            background-color: #a1a4b2;
+            border-radius: 20px;
+            padding: 20%;
+            object-fit: contain;
+        }
+
+        p {
+            margin-top: 3%;
+            font-size: 0.7rem;
+        }
+    }
+}

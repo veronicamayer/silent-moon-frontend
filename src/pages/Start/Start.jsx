@@ -1,6 +1,9 @@
-import StartImage from "../../assets/images/Start.png";
-import "./Start.scss";
+// --------------------------------------------- IMPORT PACKAGES
 import { Link } from "react-router-dom";
+// --------------------------------------------- IMPORT ASSETS
+import StartImage from "../../assets/images/Start.png";
+// --------------------------------------------- IMPORT CSS
+import "./Start.scss";
 
 const Start = () => {
     return (

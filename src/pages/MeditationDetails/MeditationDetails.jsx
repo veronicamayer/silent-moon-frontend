@@ -23,7 +23,6 @@ const MeditationDetails = ({ accessToken, id }) => {
     const [selectedPlaylist, setSelectedPlaylist] = useState([]);
     const [loading, setLoading] = useState(true);
     const [playingTrack, setPlayingTrack] = useState();
-    const [favoriteMeditation, setFavoriteMeditation] = useState([]);
 
     const nav = useNavigate();
     const user = userState((state) => state.user);
@@ -77,86 +76,6 @@ const MeditationDetails = ({ accessToken, id }) => {
             });
     }
 
-    useEffect(() => {
-        fetchUserDetails();
-    }, []);
-
-    const fetchUserDetails = async () => {
-        try {
-            const response = await fetch(
-                import.meta.env.VITE_BACKEND +
-                    import.meta.env.VITE_API_VERSION +
-                    "/user/details",
-                { credentials: "include" }
-            );
-            if (response.ok) {
-                const data = await response.json();
-                setFavoriteMeditation(data.favoriteMeditation);
-            } else {
-                const result = response.json();
-                throw new Error("Error getting user details");
-            }
-        } catch (error) {
-            console.error("Error getting user details: ", error);
-        }
-    };
-
-    const addFavorite = async (playlist) => {
-        try {
-            const response = await fetch(
-                import.meta.env.VITE_BACKEND +
-                    import.meta.env.VITE_API_VERSION +
-                    "/user/addMeditateFav",
-                {
-                    method: "POST",
-                    credentials: "include",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ favorite: playlist }),
-                }
-            );
-            if (response.ok) {
-                const data = await response.json();
-                console.log("favorite saved");
-                fetchUserDetails();
-            } else {
-                const result = response.json();
-                throw new Error("Error saving favorite: " + result);
-            }
-        } catch (error) {
-            console.error("Error saving favorite:", error);
-        }
-    };
-
-    const deleteFavorite = async (playlist) => {
-        try {
-            const response = await fetch(
-                import.meta.env.VITE_BACKEND +
-                    import.meta.env.VITE_API_VERSION +
-                    "/user/deleteMeditateFav",
-                {
-                    method: "DELETE",
-                    credentials: "include",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ favorite: playlist }),
-                }
-            );
-            if (response.ok) {
-                const data = await response.json();
-                console.log("favorite deleted");
-                fetchUserDetails();
-            } else {
-                const result = response.json();
-                throw new Error("Error deleting favorite: " + result);
-            }
-        } catch (error) {
-            console.error("Error deleting favorite:", error);
-        }
-    };
-
     if (loading) {
         return (
             <>
@@ -174,20 +93,10 @@ const MeditationDetails = ({ accessToken, id }) => {
             <Link to={"/meditate"}>
                 <button className="backButton fill"></button>
             </Link>
-            <button
-                className={`likeButton ${
-                    favoriteMeditation &&
-                    favoriteMeditation.includes(selectedPlaylist.id)
-                        ? "liked"
-                        : ""
-                }`}
-                onClick={() =>
-                    favoriteMeditation &&
-                    favoriteMeditation.includes(selectedPlaylist.id)
-                        ? deleteFavorite(selectedPlaylist.id)
-                        : addFavorite(selectedPlaylist.id)
-                }
-            ></button>
+            <LikeButton
+                resourceType={"meditation"}
+                selectedResource={selectedPlaylist.id}
+            />
             {selectedPlaylist && ( // Add conditional rendering for selectedPlaylist
                 <div>
                     <article className="meditationPlaylist">

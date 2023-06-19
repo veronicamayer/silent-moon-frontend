@@ -66,7 +66,7 @@ const TimePicker = (props) => {
             selectedPeriod !== null
         ) {
             const formattedTime = `${selectedHour}:${selectedMinute} ${selectedPeriod}`;
-            props.onTimeSelection(formattedTime);
+            props.setSelectedTime(formattedTime);
         }
     }, [selectedHour, selectedMinute, selectedPeriod]);
 
