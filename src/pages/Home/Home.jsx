@@ -14,11 +14,7 @@ const Home = ({ videos, playlists, showOverlay }) => {
 
     const user = userState((state) => state.user);
 
-    if (showOverlay) {
-        return <LoadingSpinner />;
-    }
-
-    return videos.length > 0 && playlists.length > 0 ? (
+    return (
         <section id="home">
             <h4 className="logo">SILENT MOON</h4>
             <article className="homeHeader">
@@ -47,7 +43,7 @@ const Home = ({ videos, playlists, showOverlay }) => {
             />
             <Navigation />
         </section>
-    ) : null;
+    );
 };
 
 export default Home;
