@@ -1,16 +1,17 @@
+// --------------------------------------------- IMPORT PACKAGES
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+// --------------------------------------------- IMPORT CSS
 import "./RandomHome.scss";
+// --------------------------------------------- IMPORT COMPONENTS
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
 const RandomHome = ({ videos, playlists }) => {
     const [randomVideo, setRandomVideo] = useState();
     const [randomMeditation, setRandomMeditation] = useState();
     const [isLoading, setIsLoading] = useState(true);
 
-    console.log(randomVideo);
-    console.log(randomMeditation);
     useEffect(() => {
-        // Fourth useEffect: Select random video and meditation
         const randomIndex = Math.floor(Math.random() * videos.length);
         setRandomVideo(videos[randomIndex]);
 
@@ -23,12 +24,7 @@ const RandomHome = ({ videos, playlists }) => {
     }, [videos, playlists]);
 
     if (isLoading) {
-        return (
-            <div className="lds-ripple">
-                <div></div>
-                <div></div>
-            </div>
-        );
+        return <LoadingSpinner />;
     }
 
     return (

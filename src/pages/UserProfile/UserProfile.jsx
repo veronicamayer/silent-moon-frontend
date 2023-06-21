@@ -1,30 +1,21 @@
 // --------------------------------------------- IMPORT PACKAGES
-import { useState, useEffect } from "react";
+import { useState } from "react";
 // --------------------------------------------- IMPORT ZUSTAND
 import { userState } from "../../state/userState";
-// --------------------------------------------- IMPORT HOOKS
-import { useFetchData } from "../../hooks/fetchData";
 // --------------------------------------------- IMPORT COMPONENTS
 import Navigation from "../../components/Navigation/Navigation";
+import SmallTiles from "../../components/SmallTiles/SmallTiles";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 // --------------------------------------------- IMPORT CSS
 import "./UserProfile.scss";
-import SmallTiles from "../../components/SmallTiles/SmallTiles";
 
-const UserProfile = () => {
-    // --------------------------------------------- STATES
+const UserProfile = ({ showOverlay, favoriteVideos, favoritePlaylists }) => {
     const [searchQuery, setSearchQuery] = useState("");
-    // --------------------------------------------- CONST VARIABLES
+
     const user = userState((state) => state.user);
-    const { showOverlay, favoriteVideos, favoritePlaylists } = useFetchData();
-    // --------------------------------------------- RETURN
+
     if (showOverlay) {
-        <>
-            <div className="lds-ripple">
-                <div></div>
-                <div></div>
-            </div>
-            <Navigation />
-        </>;
+        <LoadingSpinner />;
     }
 
     return (

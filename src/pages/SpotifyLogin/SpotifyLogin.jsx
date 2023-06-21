@@ -11,12 +11,14 @@ const SpotifyLogin = () => {
     /* Redirect URL to open the spotify login page */
     const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=ab15df07233441198e07735bdb853e7b&response_type=code&redirect_uri=${
         import.meta.env.VITE_FRONTEND
-    }spotify/login&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state`;
+    }/spotify/login&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state`;
 
     const nav = useNavigate();
     const goBack = () => {
         navigate(-1);
     };
+
+    console.log(AUTH_URL);
 
     return (
         <section id="spotifyLogin">

@@ -7,11 +7,11 @@ import { userState } from "../../state/userState";
 import Navigation from "../../components/Navigation/Navigation";
 import BackButton from "../../components/BackButton/BackButton";
 import LikeButton from "../../components/LikeButton/LikeButton";
+import PlayPauseButton from "../../components/PlayPauseButton/PlayPauseButton";
+import ItemDescription from "../../components/ItemDescription/ItemDescription";
 // --------------------------------------------- IMPORT CSS
 import "./YogaDetails.scss";
 // --------------------------------------------- IMPORT ASSETS
-import PlayButton from "../../assets/images/PlayButton.png";
-import PauseButton from "../../assets/images/PauseButton.png";
 
 const YogaDetails = () => {
     // --------------------------------------------- STATES
@@ -23,7 +23,6 @@ const YogaDetails = () => {
     const nav = useNavigate();
     const setUser = userState((state) => state.setUser);
     const videoRef = useRef(null);
-    const buttonRef = useRef(null);
     // --------------------------------------------- USE EFFECTS
     useEffect(() => {
         const fetchData = async () => {
@@ -37,7 +36,6 @@ const YogaDetails = () => {
                 );
                 if (response.ok) {
                     const data = await response.json();
-                    console.log(data);
                     setSelectedVideo(data);
                 } else {
                     const result = response.json();
@@ -51,20 +49,6 @@ const YogaDetails = () => {
         };
         fetchData();
     }, []);
-
-    // --------------------------------------------- CALL FUNCTIONS
-    const handlePlayClick = () => {
-        if (videoRef.current) {
-            if (videoRef.current.paused) {
-                videoRef.current.play();
-                setIsButtonVisible(false);
-                setIsVideoPlaying(true);
-            } else {
-                videoRef.current.pause();
-                setIsVideoPlaying(false);
-            }
-        }
-    };
 
     const handleVideoClick = (event) => {
         if (videoRef.current && !videoRef.current.paused) {
@@ -80,8 +64,7 @@ const YogaDetails = () => {
                 resourceType={"yoga"}
                 selectedResource={selectedVideo._id}
             />
-
-            <article className="yogaVideo">
+            <article>
                 {selectedVideo.url && (
                     <video
                         controls={false}
@@ -93,28 +76,15 @@ const YogaDetails = () => {
                 )}
 
                 {isButtonVisible && (
-                    <button ref={buttonRef} onClick={handlePlayClick}>
-                        {isVideoPlaying ? (
-                            <img src={PauseButton} alt="pause" />
-                        ) : (
-                            <img src={PlayButton} alt="play" />
-                        )}
-                    </button>
+                    <PlayPauseButton
+                        isVideoPlaying={isVideoPlaying}
+                        setIsVideoPlaying={setIsVideoPlaying}
+                        videoRef={videoRef}
+                        setIsButtonVisible={setIsButtonVisible}
+                    />
                 )}
             </article>
-            <article className="yogaDetails">
-                <h1 className="heading1">{selectedVideo.title}</h1>
-                <p className="textSmall uppercase">{selectedVideo.level}</p>
-                <p className="textSmall">{selectedVideo.description}</p>
-                <div>
-                    <p className="textSmall yogaFavoritesAndViews yogaFavorites">
-                        {(selectedVideo.favorites / 1000).toFixed(3)} Favorites
-                    </p>
-                    <p className="textSmall yogaFavoritesAndViews yogaViews">
-                        {(selectedVideo.views / 1000).toFixed(3)} Views
-                    </p>
-                </div>
-            </article>
+            <ItemDescription type="yoga" selectedItem={selectedVideo} />
             <Navigation />
         </section>
     );

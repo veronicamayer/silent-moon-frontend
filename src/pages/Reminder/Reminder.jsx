@@ -45,14 +45,14 @@ const Reminder = () => {
     return (
         <section className="reminder">
             <p className="logo">SILENT MOON</p>
-            <h2>What time would you like to meditate?</h2>
-            <p className="p_grey">
+            <h2 className="heading2">What time would you like to meditate?</h2>
+            <p className="textSmall">
                 You can choose any time you want. We recommend one session in
                 the morning.
             </p>
             <TimePicker setSelectedTime={setSelectedTime} />
-            <h2>Which day would you like to meditate?</h2>
-            <p className="p_grey">
+            <h2 className="heading2">Which day would you like to meditate?</h2>
+            <p className="textSmall">
                 Everyday is best, but we recommend picking at least five.
             </p>
             <DayPicker
@@ -63,12 +63,12 @@ const Reminder = () => {
                 <Link
                     onClick={saveReminder}
                     to="/home"
-                    className="m5 bigRedButton"
+                    className="bigRedButton"
                 >
-                    SAVE
+                    save
                 </Link>
-                <Link to="/home" style={{ color: "#e28f83" }}>
-                    NO THANKS
+                <Link to="/home" className="textSmall uppercase">
+                    no thanks
                 </Link>
             </div>
         </section>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import SpotifyPlayer from "react-spotify-web-playback";
 import "./PlayerLarge.scss";
 import LikeButton from "../LikeButton/LikeButton";

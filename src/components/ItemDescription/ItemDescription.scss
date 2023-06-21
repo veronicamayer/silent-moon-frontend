@@ -1,0 +1,46 @@
+.itemDetails {
+    padding: 0 5%;
+
+    h1 {
+        margin-bottom: 3%;
+    }
+
+    .textSmall {
+        margin-bottom: 2%;
+    }
+
+    .stats {
+        display: flex;
+        gap: 12%;
+        padding: 9% 2%;
+
+        .bothStats {
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .bothStats::before {
+            content: "";
+            position: absolute;
+            top: -4px;
+            left: -5px;
+            height: 30px;
+            width: 20px;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+        }
+
+        .favorites::before {
+            background-image: url(../../assets/images/LikeCount.png);
+        }
+
+        .songs::before {
+            background-image: url(../../assets/images/SongsIcon.png);
+        }
+
+        .views::before {
+            background-image: url(../../assets/images/ViewsCount.png);
+        }
+    }
+}

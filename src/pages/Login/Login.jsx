@@ -1,26 +1,27 @@
-import "./Login.scss";
+// --------------------------------------------- IMPORT PACKAGES
 import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+// --------------------------------------------- IMPORT CSS
+import "./Login.scss";
+// --------------------------------------------- IMPORT COMPONENTS
 import BackButton from "../../components/BackButton/BackButton";
+// --------------------------------------------- IMPORT ZUSTAND
 import { userState } from "../../state/userState";
 
 const Login = () => {
     const [hintText, setHintText] = useState("");
 
+    // ----------------------------------------- CONST VARS
     const navigate = useNavigate();
-
     const userLoginRef = useRef();
     const passwordLoginRef = useRef();
-
     const setUser = userState((state) => state.setUser);
 
+    // ----------------------------------------- LOGIN BACKEND
     const login = async (event) => {
         event.preventDefault();
-
         const userLogin = userLoginRef.current.value;
         const passwordLogin = passwordLoginRef.current.value;
-
         try {
             const result = await fetch(
                 import.meta.env.VITE_BACKEND +
@@ -38,7 +39,6 @@ const Login = () => {
                     }),
                 }
             );
-
             const response = await result.json();
             if (result.ok) {
                 console.log("Login korrekt");

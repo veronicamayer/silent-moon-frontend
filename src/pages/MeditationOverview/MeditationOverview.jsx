@@ -1,19 +1,18 @@
-import Navigation from "../../components/Navigation/Navigation";
-import "./MeditationOverview.scss";
+// --------------------------------------------- IMPORT PACKAGES
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import DailyCalmPlay from "../../assets/images/DailyCalmPlay.png";
-import { userState } from "../../state/userState";
-import { useFetchData } from "../../hooks/fetchData";
+// --------------------------------------------- IMPORT COMPONENTS
+import Navigation from "../../components/Navigation/Navigation";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import FilterButtons from "../../components/FilterButtons/FilterButtons";
 import DailyCalm from "../../components/DailyCalm/DailyCalm";
 import LargeTiles from "../../components/LargeTiles/LargeTiles";
+// --------------------------------------------- IMPORT CSS
+import "./MeditationOverview.scss";
 
 const MeditationOverview = ({ playlists, favoritePlaylists }) => {
     const [filteredPlaylists, setFilteredPlaylists] = useState([]);
-    const [randomPlaylist, setRandomPlaylist] = useState({});
 
+    /* default is set to all playlists, can be filtered and searched in seperate components */
     useEffect(() => {
         setFilteredPlaylists(playlists);
     }, [playlists]);

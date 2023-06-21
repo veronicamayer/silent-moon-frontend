@@ -1,3 +1,5 @@
+import "./DayPicker.scss";
+
 const DayPicker = ({ selectedDays, setSelectedDays }) => {
     const handleDaySelection = (day) => {
         const updatedDays = [...selectedDays];
@@ -10,7 +12,7 @@ const DayPicker = ({ selectedDays, setSelectedDays }) => {
         setSelectedDays(updatedDays);
     };
     return (
-        <div>
+        <article id="dayPicker">
             {["SU", "M", "T", "W", "TH", "F", "S"].map((day) => (
                 <button
                     key={day}
@@ -22,7 +24,7 @@ const DayPicker = ({ selectedDays, setSelectedDays }) => {
                     {day}
                 </button>
             ))}
-        </div>
+        </article>
     );
 };
 

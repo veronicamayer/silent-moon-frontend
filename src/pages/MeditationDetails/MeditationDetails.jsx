@@ -1,18 +1,20 @@
-import { useNavigate, useParams, Link } from "react-router-dom";
-import "./MeditationDetails.scss";
-import { useState, useRef, useEffect } from "react";
-import Navigation from "../../components/Navigation/Navigation";
-import BackButton from "../../components/BackButton/BackButton";
-import LikeButton from "../../components/LikeButton/LikeButton";
-import { userState } from "../../state/userState";
+// --------------------------------------------- IMPORT PACKAGES
+import { useParams, Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import SpotifyWebApi from "spotify-web-api-node";
 import Cookies from "universal-cookie";
-import PlayButton from "../../assets/images/MusicPlayIcon.png";
+// --------------------------------------------- IMPORT CSS
+import "./MeditationDetails.scss";
+// --------------------------------------------- IMPORT COMPONENTS
+import Navigation from "../../components/Navigation/Navigation";
+import LikeButton from "../../components/LikeButton/LikeButton";
 import SpotifyPlayerLarge from "../../components/PlayerLarge/PlayerLarge";
+import ItemDescription from "../../components/ItemDescription/ItemDescription";
+import PlaylistItem from "../../components/PlaylistItem/PlaylistItem";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 
+/* Initializing the Spotify API to use the web player */
 const CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
-const CLIENT_SECRET = import.meta.env.VITE_SPOTIFY_CLIENT_SECRET;
-
 const spotifyApi = new SpotifyWebApi({
     clientId: CLIENT_ID,
 });
@@ -23,69 +25,49 @@ const MeditationDetails = ({ accessToken, id }) => {
     const [selectedPlaylist, setSelectedPlaylist] = useState([]);
     const [loading, setLoading] = useState(true);
     const [playingTrack, setPlayingTrack] = useState();
+    const [spotifyAccessToken, setSpotifyAccessToken] = useState("");
 
-    const nav = useNavigate();
-    const user = userState((state) => state.user);
-
+    /* if the user wants to login to spotify and gets redirected back to this page, the playlist id is in the props, otherwise in the params */
     let { playlistId } = useParams();
     let storedPlaylistId = id?.split("/")[1];
     playlistId = playlistId || storedPlaylistId;
 
+    /* store the referrer in local storage because the way the spotify Login API works and redirects the user, this is the only way to know if the user was coming from the meditation page or the music page before trying to login to spotify... */
     useEffect(() => {
-        // Store the referrer in local storage
         localStorage.setItem("referrer", `meditationdetails/${playlistId}`);
     }, [playlistId]);
 
-    spotifyApi.setAccessToken(accessToken);
-    const cookieAccessToken = cookies.get("spotifyAccessToken");
-    spotifyApi.setAccessToken(cookieAccessToken);
-
+    /* fetch the access token for the web player either from the props or from the cookies */
     useEffect(() => {
-        // API Access Token
-        var authParameters = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-            },
-            body:
-                "grant_type=client_credentials&client_id=" +
-                CLIENT_ID +
-                "&client_secret=" +
-                CLIENT_SECRET,
-        };
+        accessToken
+            ? setSpotifyAccessToken(accessToken)
+            : setSpotifyAccessToken(cookies.get("spotifyAccessToken"));
 
-        fetch("https://accounts.spotify.com/api/token", authParameters)
-            .then((result) => result.json())
-            .then((data) => {
-                fetchPlaylist(data.access_token);
-            });
-    }, []);
+        spotifyApi.setAccessToken(spotifyAccessToken);
+    }, [accessToken, spotifyAccessToken]);
 
-    function fetchPlaylist(spotifyAuthorization) {
-        const headers = {
-            Authorization: `Bearer ${spotifyAuthorization}`,
-        };
-
-        fetch(`https://api.spotify.com/v1/playlists/${playlistId}`, {
-            headers: headers,
-        })
-            .then((result) => result.json())
+    /* fetch playlist from backend */
+    useEffect(() => {
+        setLoading(true);
+        fetch(
+            import.meta.env.VITE_BACKEND +
+                import.meta.env.VITE_API_VERSION +
+                "/data/playlists/" +
+                playlistId,
+            { credentials: "include" }
+        )
+            .then((response) => response.json())
             .then((data) => {
                 setSelectedPlaylist(data);
                 setLoading(false);
+            })
+            .catch((error) => {
+                console.error("Error fetching playlists:", error);
             });
-    }
+    }, [playlistId]);
 
     if (loading) {
-        return (
-            <>
-                <div className="lds-ripple">
-                    <div></div>
-                    <div></div>
-                </div>
-                <Navigation />
-            </>
-        );
+        return <LoadingSpinner />;
     }
 
     return (
@@ -97,83 +79,31 @@ const MeditationDetails = ({ accessToken, id }) => {
                 resourceType={"meditation"}
                 selectedResource={selectedPlaylist.id}
             />
-            {selectedPlaylist && ( // Add conditional rendering for selectedPlaylist
+            {selectedPlaylist && (
                 <div>
                     <article className="meditationPlaylist">
                         <img src={selectedPlaylist.images[0].url} alt="" />
                     </article>
-                    <article className="meditationDetails">
-                        <h1 className="heading1">{selectedPlaylist.name}</h1>
-                        <p className="textSmall uppercase">Playlist</p>
-                        <p className="textSmall">
-                            {selectedPlaylist.description}
-                        </p>
-                        <div className="likesAndSongs">
-                            <p className="textSmall meditationFavoritesAndViews meditationFavorites">
-                                {selectedPlaylist.followers.total
-                                    .toString()
-                                    .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
-                                Favorites
-                            </p>
-                            <p className="textSmall meditationFavoritesAndViews meditationViews">
-                                {selectedPlaylist.tracks.total
-                                    .toString()
-                                    .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
-                                Songs
-                            </p>
-                        </div>
-                    </article>
+                    <ItemDescription
+                        type="meditation"
+                        selectedItem={selectedPlaylist}
+                    />
                     <article className="allSongs">
                         {selectedPlaylist &&
-                            selectedPlaylist.tracks &&
                             selectedPlaylist.tracks.items.map((item) => (
-                                <div key={item.track.id}>
-                                    {accessToken || cookieAccessToken ? (
-                                        <button
-                                            onClick={() =>
-                                                setPlayingTrack(item.track)
-                                            }
-                                        >
-                                            <img
-                                                src={PlayButton}
-                                                alt="play button"
-                                            />
-                                        </button>
-                                    ) : (
-                                        <Link to={`/spotify/login`}>
-                                            <img
-                                                src={PlayButton}
-                                                alt="play button"
-                                            />
-                                        </Link>
-                                    )}
-
-                                    <h3 className="heading2">
-                                        {item.track.name}
-                                    </h3>
-                                    <p className="textSmall">{`${Math.floor(
-                                        item.track.duration_ms / 60000
-                                    )}:${
-                                        (
-                                            (item.track.duration_ms % 60000) /
-                                            1000
-                                        ).toFixed(0) < 10
-                                            ? "0"
-                                            : ""
-                                    }${(
-                                        (item.track.duration_ms % 60000) /
-                                        1000
-                                    ).toFixed(0)}`}</p>
-                                </div>
+                                <PlaylistItem
+                                    key={item.track.id}
+                                    spotifyAccessToken={spotifyAccessToken}
+                                    item={item}
+                                />
                             ))}
                     </article>
                 </div>
             )}
-
             <Navigation />
             {playingTrack && (
                 <SpotifyPlayerLarge
-                    accessToken={accessToken || cookieAccessToken}
+                    accessToken={spotifyAccessToken}
                     trackUri={playingTrack?.uri}
                     setPlayingTrack={setPlayingTrack}
                 />

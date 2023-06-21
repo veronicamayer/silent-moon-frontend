@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import SpotifyPlayer from "react-spotify-web-playback";
-import "./Player.scss";
+import "./PlayerSmall.scss";
 
-const Player = ({ accessToken, trackUri }) => {
+const PlayerSmall = ({ accessToken, trackUri }) => {
     const [play, setPlay] = useState(false);
 
     useEffect(() => setPlay(true), [trackUri]);
@@ -23,4 +23,4 @@ const Player = ({ accessToken, trackUri }) => {
     );
 };
 
-export default Player;
+export default PlayerSmall;

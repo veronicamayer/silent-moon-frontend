@@ -7,15 +7,22 @@
 
     div {
         position: relative;
+        overflow: hidden;
+        border-radius: 10px;
 
         video,
         img {
             width: 43.5vw;
             height: 23vh;
-            object-fit: cover;
-            border-radius: 10px;
-            object-position: bottom center;
             filter: brightness(0.7);
+            object-fit: cover;
+            object-position: center;
+            transform: scale(1.1);
+        }
+
+        img {
+            object-position: bottom center;
+            transform: scale(1.7);
         }
 
         h3 {

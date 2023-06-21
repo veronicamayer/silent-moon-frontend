@@ -1,0 +1,31 @@
+.playlistItem {
+    position: relative;
+    text-align: left;
+    padding: 4% 0 4% 14%;
+    margin: 0 5%;
+    border-bottom: 1px solid #adb8d929;
+
+    a,
+    button {
+        position: absolute;
+        top: 15px;
+        left: 0;
+        background-color: rgba(255, 255, 255, 0);
+        border: none;
+
+        img {
+            object-fit: contain;
+            width: 35px;
+            height: 35px;
+        }
+    }
+
+    h3 {
+        font-size: 0.9rem;
+        color: #3f414ed8;
+    }
+
+    p {
+        font-size: 0.8rem;
+    }
+}

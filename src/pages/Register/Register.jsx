@@ -1,18 +1,24 @@
+// --------------------------------------------- IMPORT PACKAGES
 import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+// --------------------------------------------- IMPORT COMPONENTS
 import BackButton from "../../components/BackButton/BackButton";
+// --------------------------------------------- IMPORT ZUSTAND
 import { userState } from "../../state/userState";
+// --------------------------------------------- IMPORT CSS
+/* the styles can be found in pages/Login/Login.scss */
 
 const Register = () => {
+    // --------------------------------------------- STATES
     const [hintText, setHintText] = useState("");
-
+    // --------------------------------------------- CONST VARS
     const nameRegisterRef = useRef();
     const surnameRegisterRef = useRef();
     const emailRegisterRef = useRef();
     const passwordRegisterRef = useRef();
     const navigate = useNavigate();
     const setUser = userState((state) => state.setUser);
-
+    // --------------------------------------------- BACKEND ROUTE
     const register = async (event) => {
         event.preventDefault();
 
@@ -58,7 +64,6 @@ const Register = () => {
 
     return (
         <section className="loginAndRegister">
-            {/* the styles can be found in pages/Login/Login.scss */}
             <BackButton />
             <h1 className="heading1">Create your account</h1>
             <form onSubmit={register}>

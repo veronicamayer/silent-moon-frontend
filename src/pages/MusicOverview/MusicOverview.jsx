@@ -1,16 +1,22 @@
+// --------------------------------------------- IMPORT PACKAGES
 import { useState, useEffect } from "react";
-import "./MusicOverview.scss";
-import Navigation from "../../components/Navigation/Navigation";
-import Player from "../../components/PlayerSmall/Player";
 import SpotifyWebApi from "spotify-web-api-node";
-import { useNavigate, Link } from "react-router-dom";
-import PlayButton from "../../assets/images/MusicPlayIcon.png";
+import { Link } from "react-router-dom";
 import Cookies from "universal-cookie";
+// --------------------------------------------- IMPORT CSS
+import "./MusicOverview.scss";
+// --------------------------------------------- IMPORT COMPONENTS
+import Navigation from "../../components/Navigation/Navigation";
+import PlayerSmall from "../../components/PlayerSmall/PlayerSmall";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+// --------------------------------------------- IMPORT ASSETS
+import PlayButton from "../../assets/images/MusicPlayIcon.png";
 
-const CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
-const CLIENT_SECRET = import.meta.env.VITE_SPOTIFY_CLIENT_SECRET;
+/* ID for the "Good Vibes" Playlist on Spotify */
 const PLAYLIST_ID = "37i9dQZF1DWYBO1MoTDhZI";
 
+/* Initializing the Spotify API to use the web player */
+const CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
 const spotifyApi = new SpotifyWebApi({
     clientId: CLIENT_ID,
 });
@@ -20,49 +26,39 @@ const cookies = new Cookies();
 const MusicOverview = ({ accessToken }) => {
     const [playlist, setPlaylist] = useState(null);
     const [playingTrack, setPlayingTrack] = useState();
+    const [spotifyAccessToken, setSpotifyAccessToken] = useState("");
+    const [isLoading, setIsLoading] = useState(true);
 
-    const navigate = useNavigate();
-
-    spotifyApi.setAccessToken(accessToken);
-
-    const cookieAccessToken = cookies.get("spotifyAccessToken");
-    spotifyApi.setAccessToken(cookieAccessToken);
-
-    console.log(accessToken);
-    console.log(cookieAccessToken);
-
+    /* fetch the access token for the web player either from the props or from the cookies */
     useEffect(() => {
-        // get basic authorization for Spotify (no access to player)
-        var authParameters = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-            },
-            body:
-                "grant_type=client_credentials&client_id=" +
-                CLIENT_ID +
-                "&client_secret=" +
-                CLIENT_SECRET,
-        };
+        accessToken
+            ? setSpotifyAccessToken(accessToken)
+            : setSpotifyAccessToken(cookies.get("spotifyAccessToken"));
 
-        fetch("https://accounts.spotify.com/api/token", authParameters)
-            .then((result) => result.json())
+        spotifyApi.setAccessToken(spotifyAccessToken);
+    });
+
+    /* fetch playlist from backend */
+    useEffect(() => {
+        fetch(
+            import.meta.env.VITE_BACKEND +
+                import.meta.env.VITE_API_VERSION +
+                "/data/playlists/" +
+                PLAYLIST_ID,
+            { credentials: "include" }
+        )
+            .then((response) => response.json())
             .then((data) => {
-                fetchPlaylist(data.access_token);
+                setPlaylist(data);
+                setIsLoading(false);
+            })
+            .catch((error) => {
+                console.error("Error fetching playlists:", error);
             });
     }, []);
 
-    // Fetch Playlist
-    function fetchPlaylist(spotifyAuthorization) {
-        const headers = {
-            Authorization: `Bearer ${spotifyAuthorization}`,
-        };
-
-        fetch(`https://api.spotify.com/v1/playlists/${PLAYLIST_ID}`, {
-            headers: headers,
-        })
-            .then((result) => result.json())
-            .then((data) => setPlaylist(data));
+    if (isLoading) {
+        <LoadingSpinner />;
     }
 
     return (
@@ -95,7 +91,7 @@ const MusicOverview = ({ accessToken }) => {
                     playlist.tracks &&
                     playlist.tracks.items.map((item) => (
                         <div key={item.track.id}>
-                            {accessToken || cookieAccessToken ? (
+                            {spotifyAccessToken ? (
                                 <button
                                     onClick={() => setPlayingTrack(item.track)}
                                 >
@@ -123,8 +119,8 @@ const MusicOverview = ({ accessToken }) => {
                         </div>
                     ))}
             </article>
-            <Player
-                accessToken={accessToken || cookieAccessToken}
+            <PlayerSmall
+                accessToken={spotifyAccessToken}
                 trackUri={playingTrack?.uri}
             />
             <Navigation />
