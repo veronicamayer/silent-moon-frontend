@@ -32,7 +32,7 @@ export function useFetchData(options = {}) {
                 } else {
                     const result = await response.json();
                     setUser(result);
-                    nav("/login");
+                    nav("/");
                     throw new Error("Error fetching videos");
                 }
             } catch (error) {
