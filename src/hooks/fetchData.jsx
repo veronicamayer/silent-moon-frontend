@@ -78,13 +78,11 @@ export function useFetchData(options = {}) {
                             favoriteVideoIds.includes(video._id)
                         )
                     );
-                    console.log(favoriteVideos);
                     setFavoritePlaylists(
                         playlists.filter((playlist) =>
                             favoritePlaylistIds.includes(playlist.id)
                         )
                     );
-                    console.log(favoritePlaylists);
                 } else {
                     const result = response.json();
                     throw new Error("Error getting user details");

@@ -29,11 +29,8 @@ const RandomHome = ({ videos, playlists }) => {
 
     return (
         <article id="randomSuggestions">
-            <div>
-                <Link
-                    to={`/meditatedetails/${randomMeditation.id}`}
-                    key={randomMeditation.id}
-                >
+            {randomMeditation && (
+                <Link to={`/meditatedetails/${randomMeditation.id}`}>
                     <img src={randomMeditation.images[0].url} alt="" />
 
                     <h3 className="heading2">{randomMeditation.name}</h3>
@@ -44,12 +41,9 @@ const RandomHome = ({ videos, playlists }) => {
                     </p>
                     <p className="textSmall uppercase">Start</p>
                 </Link>
-            </div>
-            <div>
-                <Link
-                    to={`/yogadetails/${randomVideo._id}`}
-                    key={randomVideo._id}
-                >
+            )}
+            {randomVideo && (
+                <Link to={`/yogadetails/${randomVideo._id}`}>
                     <video controls={false}>
                         <source src={randomVideo.url} />
                     </video>
@@ -62,7 +56,7 @@ const RandomHome = ({ videos, playlists }) => {
                     </p>
                     <p className="textSmall uppercase">Start</p>
                 </Link>
-            </div>
+            )}
         </article>
     );
 };
