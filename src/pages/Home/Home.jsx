@@ -1,5 +1,5 @@
 // --------------------------------------------- IMPORT PACKAGES
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { userState } from "../../state/userState";
 // --------------------------------------------- IMPORT COMPONENTS
 import Navigation from "../../components/Navigation/Navigation";
@@ -11,8 +11,20 @@ import "./Home.scss";
 
 const Home = ({ videos, playlists, showOverlay }) => {
     const [searchQuery, setSearchQuery] = useState("");
+    const [loading, setLoading] = useState(true);
 
     const user = userState((state) => state.user);
+
+    useEffect(() => {
+        // Simulate async data loading
+        setTimeout(() => {
+            setLoading(false);
+        }, 2000);
+    }, []);
+
+    if (loading) {
+        return <LoadingSpinner />;
+    }
 
     return (
         <section id="home">
