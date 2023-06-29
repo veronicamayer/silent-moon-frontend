@@ -30,3 +30,57 @@
         }
     }
 }
+
+@media screen and (min-width: 576px) {
+    #spotifyPlayerSmall {
+        .PlayerRSWP {
+            position: absolute;
+            width: 100%;
+            margin: auto;
+
+            svg {
+                width: 40%;
+                height: 40%;
+            }
+            .rswp__active._InfoRSWP.__1jmym9x {
+                > a {
+                    display: flex;
+                    justify-content: center;
+                    width: 20%;
+
+                    img {
+                        width: 70%;
+                        height: 70%;
+                    }
+                }
+            }
+            ._InfoRSWP {
+                a {
+                    min-width: 0;
+                }
+            }
+            .__1jmym9x {
+                min-height: 0;
+            }
+            ._ContentWrapperRSWP.__1c53jt9 {
+                width: 80%;
+            }
+            ._ControlsRSWP.__11aa6ep {
+                padding: 0 3%;
+            }
+            ._ControlsButtonRSWP.__3hmsj {
+                height: 1%;
+            }
+            .rswp__volume,
+            .rswp__devices {
+                height: 100%;
+            }
+            ._VolumeRSWP,
+            ._DevicesRSWP {
+                > button {
+                    height: auto;
+                }
+            }
+        }
+    }
+}

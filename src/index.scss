@@ -26,11 +26,10 @@
 
 // --------------------------------------------- CLASSES THAT ARE USED IN VARIOUS COMPONENTS
 .logo {
-    position: absolute;
-    top: 0;
+    position: relative;
+    padding: 7% 0;
     width: 100%;
     text-align: center;
-    padding: 7% 0;
     font-family: "Source Sans Pro Semibold";
     letter-spacing: 0.2em;
     color: #4a503d;
@@ -53,7 +52,6 @@
 .heading1 {
     font-family: "Source Sans Pro Bold";
     color: #4a503d;
-    letter-spacing: 0.06em;
     font-size: 2rem;
 }
 
@@ -62,6 +60,13 @@
     letter-spacing: 0.06em;
     color: #4a503d;
     font-size: 1.3rem;
+}
+
+.heading3 {
+    font-family: "Source Sans Pro Bold";
+    letter-spacing: 0.06em;
+    color: #4a503d;
+    font-size: 1rem;
 }
 
 .textSmall {
@@ -76,4 +81,31 @@
 
 a {
     text-decoration: none;
+}
+
+.light {
+    color: #faf0e0;
+}
+
+@media screen and (min-width: 576px) {
+    .logo,
+    .bigRedButton {
+        font-size: 0.8rem;
+    }
+
+    .heading1 {
+        font-size: 1.7rem;
+    }
+
+    .heading2 {
+        font-size: 1rem;
+    }
+
+    .heading3 {
+        font-size: 0.8rem;
+    }
+
+    .textSmall {
+        font-size: 0.7rem;
+    }
 }

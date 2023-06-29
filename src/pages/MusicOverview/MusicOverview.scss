@@ -1,5 +1,4 @@
 #musicOverview {
-    padding-top: 20%;
     text-align: center;
 
     h1 {
@@ -67,13 +66,41 @@
                 }
             }
 
-            h3 {
-                font-size: 0.9rem;
-                color: #3f414ed8;
-            }
-
             p {
                 font-size: 0.8rem;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 576px) {
+    #musicOverview {
+        h1 {
+            margin: 5%;
+        }
+        .likesAndSongs {
+            .musicFavoritesAndViews::before {
+                content: "";
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                height: 15px;
+                width: 15px;
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: contain;
+            }
+        }
+        .allSongs {
+            div {
+                a,
+                button {
+                    img {
+                        object-fit: contain;
+                        width: 25px;
+                        height: 25px;
+                    }
+                }
             }
         }
     }

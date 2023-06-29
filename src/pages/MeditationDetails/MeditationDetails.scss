@@ -2,6 +2,8 @@
     padding-bottom: 25%;
 
     .meditationPlaylist {
+        position: relative;
+
         img {
             width: 100%;
             height: 30vh;
@@ -10,6 +12,13 @@
             border-radius: 0 0 10px 10px;
             margin-bottom: 10%;
             object-position: center -10vh;
+        }
+    }
+}
+
+@media screen and (min-width: 576px) {
+    #meditationDetails {
+        .meditationPlaylist {
         }
     }
 }

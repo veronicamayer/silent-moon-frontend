@@ -72,3 +72,32 @@
         }
     }
 }
+
+@media screen and (min-width: 576px) {
+    #navigation {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 2% 4%;
+        border-radius: 0 0 5px 5px;
+
+        a {
+            width: 15%;
+            background-size: 40%;
+
+            p {
+                font-size: 0.6rem;
+            }
+        }
+
+        .active {
+            background-size: 70%;
+            background-position: center 17%;
+
+            p {
+                color: #e28f83;
+            }
+        }
+    }
+}

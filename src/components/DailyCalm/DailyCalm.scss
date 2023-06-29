@@ -10,15 +10,20 @@
     display: flex;
     justify-content: space-between;
 
-    h3 {
-        font-size: 1.1rem;
-    }
-
-    p {
-        font-size: 0.9rem;
-    }
-
     img {
         object-fit: contain;
+    }
+}
+
+@media screen and (min-width: 576px) {
+    .dailyCalm {
+        border-radius: 10px;
+        display: flex;
+        justify-content: space-between;
+
+        img {
+            object-fit: contain;
+            width: 13%;
+        }
     }
 }

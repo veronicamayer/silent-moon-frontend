@@ -1,0 +1,42 @@
+@media screen and (min-width: 576px) {
+    .smartphone {
+        position: relative;
+        width: 45vh;
+        min-width: 290px;
+        height: 95vh;
+        min-height: 630px;
+        margin: 2.5vh auto;
+        border: 15px black solid;
+        border-top-width: 30px;
+        border-bottom-width: 30px;
+        border-radius: 36px;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .smartphone:before {
+        content: "";
+        display: block;
+        width: 60px;
+        height: 5px;
+        position: absolute;
+        top: -15px;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #333;
+        border-radius: 10px;
+    }
+
+    .smartphone .content {
+        width: 100%;
+        border: none;
+        height: 100%;
+        background-color: white;
+        overflow: scroll;
+        border-radius: 5px;
+    }
+
+    .smartphone .content::-webkit-scrollbar {
+        display: none;
+    }
+}

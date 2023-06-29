@@ -20,12 +20,20 @@
         }
     }
 
-    h3 {
-        font-size: 0.9rem;
-        color: #3f414ed8;
-    }
-
     p {
         font-size: 0.8rem;
+    }
+}
+
+@media screen and (min-width: 576px) {
+    .playlistItem {
+        a,
+        button {
+            img {
+                object-fit: contain;
+                width: 25px;
+                height: 25px;
+            }
+        }
     }
 }

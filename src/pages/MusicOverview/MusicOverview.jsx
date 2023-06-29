@@ -58,74 +58,87 @@ const MusicOverview = ({ accessToken }) => {
     }, []);
 
     if (isLoading) {
-        <LoadingSpinner />;
-    }
+        return (
+            <section id="musicOverview">
+                <LoadingSpinner />
+                <Navigation />
+            </section>
+        );
+    } else {
+        return (
+            <section id="musicOverview">
+                <p className="logo">SILENT MOON</p>
 
-    return (
-        <section id="musicOverview">
-            <p className="logo">SILENT MOON</p>
+                <h1 className="heading1">{playlist ? playlist.name : ""}</h1>
+                <p className="textSmall uppercase">Playlist</p>
 
-            <h1 className="heading1">{playlist ? playlist.name : ""}</h1>
-            <p className="textSmall uppercase">Playlist</p>
+                <p className="textSmall">Breathe. Sense. Feel. Transcend.</p>
+                {playlist && (
+                    <div className="likesAndSongs">
+                        <p className="textSmall musicFavoritesAndViews musicFavorites">
+                            {playlist.followers.total
+                                .toString()
+                                .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
+                            Favorites
+                        </p>
+                        <p className="textSmall musicFavoritesAndViews musicViews">
+                            {playlist.tracks.total
+                                .toString()
+                                .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
+                            Songs
+                        </p>
+                    </div>
+                )}
 
-            <p className="textSmall">Breathe. Sense. Feel. Transcend.</p>
-            {playlist && (
-                <div className="likesAndSongs">
-                    <p className="textSmall musicFavoritesAndViews musicFavorites">
-                        {playlist.followers.total
-                            .toString()
-                            .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
-                        Favorites
-                    </p>
-                    <p className="textSmall musicFavoritesAndViews musicViews">
-                        {playlist.tracks.total
-                            .toString()
-                            .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
-                        Songs
-                    </p>
-                </div>
-            )}
-
-            <article className="allSongs">
-                {playlist &&
-                    playlist.tracks &&
-                    playlist.tracks.items.map((item) => (
-                        <div key={item.track.id}>
-                            {spotifyAccessToken ? (
-                                <button
-                                    onClick={() => setPlayingTrack(item.track)}
-                                >
-                                    <img src={PlayButton} alt="play button" />
-                                </button>
-                            ) : (
-                                <Link to="/spotify/login">
-                                    <img src={PlayButton} alt="play button" />
-                                </Link>
-                            )}
-                            <h3 className="heading2">{item.track.name}</h3>
-                            <p className="textSmall">{`${Math.floor(
-                                item.track.duration_ms / 60000
-                            )}:${
-                                (
+                <article className="allSongs">
+                    {playlist &&
+                        playlist.tracks &&
+                        playlist.tracks.items.map((item) => (
+                            <div key={item.track.id}>
+                                {spotifyAccessToken ? (
+                                    <button
+                                        onClick={() =>
+                                            setPlayingTrack(item.track)
+                                        }
+                                    >
+                                        <img
+                                            src={PlayButton}
+                                            alt="play button"
+                                        />
+                                    </button>
+                                ) : (
+                                    <Link to="/spotify/login">
+                                        <img
+                                            src={PlayButton}
+                                            alt="play button"
+                                        />
+                                    </Link>
+                                )}
+                                <h3 className="heading3">{item.track.name}</h3>
+                                <p className="textSmall">{`${Math.floor(
+                                    item.track.duration_ms / 60000
+                                )}:${
+                                    (
+                                        (item.track.duration_ms % 60000) /
+                                        1000
+                                    ).toFixed(0) < 10
+                                        ? "0"
+                                        : ""
+                                }${(
                                     (item.track.duration_ms % 60000) /
                                     1000
-                                ).toFixed(0) < 10
-                                    ? "0"
-                                    : ""
-                            }${(
-                                (item.track.duration_ms % 60000) /
-                                1000
-                            ).toFixed(0)}`}</p>
-                        </div>
-                    ))}
-            </article>
-            <PlayerSmall
-                accessToken={spotifyAccessToken}
-                trackUri={playingTrack?.uri}
-            />
-            <Navigation />
-        </section>
-    );
+                                ).toFixed(0)}`}</p>
+                            </div>
+                        ))}
+                </article>
+                <PlayerSmall
+                    accessToken={spotifyAccessToken}
+                    trackUri={playingTrack?.uri}
+                />
+                <Navigation />
+            </section>
+        );
+    }
 };
 
 export default MusicOverview;

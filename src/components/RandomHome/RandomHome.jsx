@@ -33,13 +33,13 @@ const RandomHome = ({ videos, playlists }) => {
                 <Link to={`/meditatedetails/${randomMeditation.id}`}>
                     <img src={randomMeditation.images[0].url} alt="" />
 
-                    <h3 className="heading2">{randomMeditation.name}</h3>
+                    <h3 className="heading3 light">{randomMeditation.name}</h3>
 
-                    <p className="textSmall uppercase">playlist</p>
-                    <p className="textSmall uppercase">
+                    <p className="textSmall uppercase light">playlist</p>
+                    <p className="textSmall uppercase light">
                         {randomMeditation.tracks.total} items
                     </p>
-                    <p className="textSmall uppercase">Start</p>
+                    <p className="textSmall uppercase light">Start</p>
                 </Link>
             )}
             {randomVideo && (
@@ -48,13 +48,15 @@ const RandomHome = ({ videos, playlists }) => {
                         <source src={randomVideo.url} />
                     </video>
 
-                    <h3 className="heading2">{randomVideo.title}</h3>
+                    <h3 className="heading3 light">{randomVideo.title}</h3>
 
-                    <p className="textSmall uppercase">{randomVideo.level}</p>
-                    <p className="textSmall uppercase">
+                    <p className="textSmall uppercase light">
+                        {randomVideo.level}
+                    </p>
+                    <p className="textSmall uppercase light">
                         {randomVideo.duration} min
                     </p>
-                    <p className="textSmall uppercase">Start</p>
+                    <p className="textSmall uppercase light">Start</p>
                 </Link>
             )}
         </article>

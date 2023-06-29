@@ -44,3 +44,20 @@
         }
     }
 }
+
+@media screen and (min-width: 576px) {
+    .itemDetails {
+        .textSmall.uppercase {
+            margin-bottom: 3%;
+        }
+        .stats {
+            padding: 7% 2%;
+            .bothStats::before {
+                top: 0px;
+                left: 0px;
+                height: 15px;
+                width: 15px;
+            }
+        }
+    }
+}

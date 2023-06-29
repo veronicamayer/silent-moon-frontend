@@ -1,6 +1,11 @@
 .start {
     text-align: center;
 
+    .logo {
+        position: absolute;
+        top: 0;
+    }
+
     img {
         width: 100%;
         object-fit: cover;
@@ -9,9 +14,6 @@
 
     article {
         h1 {
-            font-family: "Roboto Medium";
-            color: #4a503d;
-            font-size: 2rem;
             margin-bottom: 5%;
         }
 

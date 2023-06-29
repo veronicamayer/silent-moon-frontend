@@ -1,4 +1,8 @@
 #spotifyLogin {
+    .logo {
+        position: absolute;
+        top: 0;
+    }
     #spotifyLoginHeader {
         text-align: center;
         height: 90vh;
@@ -35,4 +39,7 @@
             }
         }
     }
+}
+
+@media screen and (min-width: 576px) {
 }

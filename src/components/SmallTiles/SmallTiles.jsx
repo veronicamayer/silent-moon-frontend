@@ -32,7 +32,8 @@ const SmallTiles = ({ type, searchQuery, items }) => {
                                 <img src={item.images[0].url} alt="" />
                             )
                         )}
-                        <h3 className="heading2">
+
+                        <h3 className="heading3">
                             {type === "videos" ? item.title : item.name}
                         </h3>
                         <div>
@@ -55,7 +56,7 @@ const SmallTiles = ({ type, searchQuery, items }) => {
             ) : (
                 <Link>
                     <img src={DefaultResult} alt="" />
-                    <h3 className="heading2">Nothing found</h3>
+                    <h3 className="heading3">Nothing found</h3>
                 </Link>
             )}
         </article>

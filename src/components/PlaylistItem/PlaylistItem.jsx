@@ -2,7 +2,7 @@ import PlayButton from "../../assets/images/MusicPlayIcon.png";
 import { Link } from "react-router-dom";
 import "./PlaylistItem.scss";
 
-const PlaylistItem = ({ spotifyAccessToken, item }) => {
+const PlaylistItem = ({ spotifyAccessToken, item, setPlayingTrack }) => {
     return (
         <div className="playlistItem">
             {spotifyAccessToken ? (
@@ -15,7 +15,7 @@ const PlaylistItem = ({ spotifyAccessToken, item }) => {
                 </Link>
             )}
 
-            <h3 className="heading2">{item.track.name}</h3>
+            <h3 className="heading3">{item.track.name}</h3>
             <p className="textSmall">{`${Math.floor(
                 item.track.duration_ms / 60000
             )}:${

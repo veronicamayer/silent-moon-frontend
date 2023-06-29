@@ -2,7 +2,7 @@ import React from "react";
 import FilterAll from "../../assets/images/FilterAll.png";
 import FilterFavorites from "../../assets/images/FilterFavorites.png";
 import FilterBeginner from "../../assets/images/FilterBeginner.png";
-import FilterIntermediate from "../../assets/images/FilterIntermediate.png";
+import FilterAdvanced from "../../assets/images/FilterAdvanced.png";
 import FilterExpert from "../../assets/images/FilterExpert.png";
 import FilterShort from "../../assets/images/FilterShort.png";
 import FilterMedium from "../../assets/images/FilterMedium.png";
@@ -18,16 +18,10 @@ const FilterButtons = ({ type, items, favoriteItems, setFilteredItems }) => {
             FilterAll,
             FilterFavorites,
             FilterBeginner,
-            FilterIntermediate,
+            FilterAdvanced,
             FilterExpert,
         ];
-        filterNames = [
-            "All",
-            "Favorites",
-            "Beginner",
-            "Intermediate",
-            "Expert",
-        ];
+        filterNames = ["All", "Favorites", "Beginner", "Advanced", "Expert"];
     } else if (type === "meditation") {
         filterImages = [
             FilterAll,

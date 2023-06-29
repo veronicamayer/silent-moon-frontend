@@ -28,3 +28,17 @@
     background-position: center;
     background-size: contain;
 }
+
+@media screen and (min-width: 576px) {
+    .searchBar {
+        input {
+            line-height: 1.3rem;
+        }
+    }
+    .searchBar::before {
+        height: 13px;
+        width: 13px;
+        top: 19%;
+        right: 8%;
+    }
+}

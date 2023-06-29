@@ -21,7 +21,7 @@ const LargeTiles = ({ type, item, allItems }) => {
                 <img src={item.images[0].url} alt="" />
             )}
 
-            <h3 className="heading2">
+            <h3 className="heading3">
                 {item[type === "yoga" ? "title" : "name"]}
             </h3>
         </Link>

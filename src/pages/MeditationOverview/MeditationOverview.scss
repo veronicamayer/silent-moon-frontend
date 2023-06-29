@@ -1,12 +1,11 @@
 #meditationOverview {
     > h1 {
         text-align: center;
-        padding-top: 20%;
     }
 
     > .textSmall {
         margin: 5% 15%;
-        font-size: 0.8rem;
+
         text-align: center;
     }
 
@@ -14,5 +13,13 @@
         padding: 0 5% 25% 5%;
         column-count: 2;
         column-gap: 10px;
+    }
+}
+
+@media screen and (min-width: 576px) {
+    #meditationOverview {
+        > .textSmall {
+            margin: 5% 10% 1% 10%;
+        }
     }
 }

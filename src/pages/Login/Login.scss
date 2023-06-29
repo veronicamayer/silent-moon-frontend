@@ -43,3 +43,13 @@
         }
     }
 }
+
+@media screen and (min-width: 576px) {
+    .loginAndRegister {
+        form {
+            input {
+                font-size: 0.8rem;
+            }
+        }
+    }
+}

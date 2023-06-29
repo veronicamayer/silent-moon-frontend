@@ -62,64 +62,69 @@ function App() {
 
     // --------------------------------------------- RETURN
     return (
-        <div className="App">
-            <Routes>
-                <Route path="/" element={<Start />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                <Route element={<ProtectRoutes />}>
-                    <Route path="/welcome" element={<Welcome />} />
-                    <Route path="/reminder" element={<Reminder />} />
-                    <Route
-                        path="/home"
-                        element={
-                            <Home
-                                videos={videos}
-                                playlists={playlists}
-                                showOverlay={showOverlay}
-                            />
-                        }
-                    />
-                    <Route
-                        path="/yoga"
-                        element={
-                            <YogaOverview
-                                videos={videos}
-                                favoriteVideos={favoriteVideos}
-                            />
-                        }
-                    />
-                    <Route
-                        path="/yogadetails/:videoId"
-                        element={<YogaDetails />}
-                    />
-                    <Route
-                        path="/meditate"
-                        element={
-                            <MeditationOverview
-                                playlists={playlists}
-                                favoritePlaylists={favoritePlaylists}
-                            />
-                        }
-                    />
-                    <Route
-                        path="/meditatedetails/:playlistId"
-                        element={<MeditationDetails />}
-                    />
-                    <Route path="/spotify/login" element={<SpotifyStart />} />
-                    <Route path="/music" element={<MusicOverview />} />
-                    <Route
-                        path="/profile"
-                        element={
-                            <UserProfile
-                                showOverlay={showOverlay}
-                                favoriteVideos={favoriteVideos}
-                                favoritePlaylists={favoritePlaylists}
-                            />
-                        }
-                    />
-                </Route>
-            </Routes>
+        <div className="smartphone">
+            <div className="content">
+                <Routes>
+                    <Route path="/" element={<Start />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
+                    <Route element={<ProtectRoutes />}>
+                        <Route path="/welcome" element={<Welcome />} />
+                        <Route path="/reminder" element={<Reminder />} />
+                        <Route
+                            path="/home"
+                            element={
+                                <Home
+                                    videos={videos}
+                                    playlists={playlists}
+                                    showOverlay={showOverlay}
+                                />
+                            }
+                        />
+                        <Route
+                            path="/yoga"
+                            element={
+                                <YogaOverview
+                                    videos={videos}
+                                    favoriteVideos={favoriteVideos}
+                                />
+                            }
+                        />
+                        <Route
+                            path="/yogadetails/:videoId"
+                            element={<YogaDetails />}
+                        />
+                        <Route
+                            path="/meditate"
+                            element={
+                                <MeditationOverview
+                                    playlists={playlists}
+                                    favoritePlaylists={favoritePlaylists}
+                                />
+                            }
+                        />
+                        <Route
+                            path="/meditatedetails/:playlistId"
+                            element={<MeditationDetails />}
+                        />
+                        <Route
+                            path="/spotify/login"
+                            element={<SpotifyStart />}
+                        />
+                        <Route path="/music" element={<MusicOverview />} />
+                        <Route
+                            path="/profile"
+                            element={
+                                <UserProfile
+                                    showOverlay={showOverlay}
+                                    favoriteVideos={favoriteVideos}
+                                    favoritePlaylists={favoritePlaylists}
+                                />
+                            }
+                        />
+                    </Route>
+                </Routes>
+            </div>
         </div>
     );
 }

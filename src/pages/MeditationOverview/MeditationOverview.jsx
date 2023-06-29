@@ -1,5 +1,6 @@
 // --------------------------------------------- IMPORT PACKAGES
 import React, { useEffect, useState } from "react";
+import { useFetchData } from "../../hooks/fetchData";
 // --------------------------------------------- IMPORT COMPONENTS
 import Navigation from "../../components/Navigation/Navigation";
 import SearchBar from "../../components/SearchBar/SearchBar";
@@ -9,8 +10,10 @@ import LargeTiles from "../../components/LargeTiles/LargeTiles";
 // --------------------------------------------- IMPORT CSS
 import "./MeditationOverview.scss";
 
-const MeditationOverview = ({ playlists, favoritePlaylists }) => {
+const MeditationOverview = () => {
     const [filteredPlaylists, setFilteredPlaylists] = useState([]);
+
+    const { playlists, favoritePlaylists } = useFetchData();
 
     /* default is set to all playlists, can be filtered and searched in seperate components */
     useEffect(() => {

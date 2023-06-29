@@ -67,49 +67,55 @@ const MeditationDetails = ({ accessToken, id }) => {
     }, [playlistId]);
 
     if (loading) {
-        return <LoadingSpinner />;
-    }
-
-    return (
-        <section id="meditationDetails">
-            <Link to={"/meditate"}>
-                <button className="backButton fill"></button>
-            </Link>
-            <LikeButton
-                resourceType={"meditation"}
-                selectedResource={selectedPlaylist.id}
-            />
-            {selectedPlaylist && (
-                <div>
-                    <article className="meditationPlaylist">
-                        <img src={selectedPlaylist.images[0].url} alt="" />
-                    </article>
-                    <ItemDescription
-                        type="meditation"
-                        selectedItem={selectedPlaylist}
+        return (
+            <section id="meditationDetails">
+                <LoadingSpinner />
+                <Navigation />
+            </section>
+        );
+    } else {
+        return (
+            <section id="meditationDetails">
+                {selectedPlaylist && (
+                    <div>
+                        <article className="meditationPlaylist">
+                            <Link to={"/meditate"}>
+                                <button className="backButton fill"></button>
+                            </Link>
+                            <LikeButton
+                                resourceType={"meditation"}
+                                selectedResource={selectedPlaylist.id}
+                            />
+                            <img src={selectedPlaylist.images[0].url} alt="" />
+                        </article>
+                        <ItemDescription
+                            type="meditation"
+                            selectedItem={selectedPlaylist}
+                        />
+                        <article className="allSongs">
+                            {selectedPlaylist &&
+                                selectedPlaylist.tracks.items.map((item) => (
+                                    <PlaylistItem
+                                        key={item.track.id}
+                                        spotifyAccessToken={spotifyAccessToken}
+                                        item={item}
+                                        setPlayingTrack={setPlayingTrack}
+                                    />
+                                ))}
+                        </article>
+                    </div>
+                )}
+                <Navigation />
+                {playingTrack && (
+                    <SpotifyPlayerLarge
+                        accessToken={spotifyAccessToken}
+                        trackUri={playingTrack?.uri}
+                        setPlayingTrack={setPlayingTrack}
                     />
-                    <article className="allSongs">
-                        {selectedPlaylist &&
-                            selectedPlaylist.tracks.items.map((item) => (
-                                <PlaylistItem
-                                    key={item.track.id}
-                                    spotifyAccessToken={spotifyAccessToken}
-                                    item={item}
-                                />
-                            ))}
-                    </article>
-                </div>
-            )}
-            <Navigation />
-            {playingTrack && (
-                <SpotifyPlayerLarge
-                    accessToken={spotifyAccessToken}
-                    trackUri={playingTrack?.uri}
-                    setPlayingTrack={setPlayingTrack}
-                />
-            )}
-        </section>
-    );
+                )}
+            </section>
+        );
+    }
 };
 
 export default MeditationDetails;

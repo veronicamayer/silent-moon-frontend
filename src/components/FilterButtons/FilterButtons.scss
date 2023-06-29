@@ -24,3 +24,22 @@
         }
     }
 }
+
+@media screen and (min-width: 576px) {
+    .filterButtons {
+        button {
+            img {
+                width: 80%;
+                height: 63%;
+
+                border-radius: 15px;
+                padding: 20%;
+                object-fit: contain;
+            }
+
+            p {
+                font-size: 0.6rem;
+            }
+        }
+    }
+}
