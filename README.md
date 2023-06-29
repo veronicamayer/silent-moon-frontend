@@ -16,7 +16,7 @@ This website uses the Spotify API. You can see the documentation here. As for a 
 All the yoga videos are free-to-use stock videos. We saved the video URL in Mongo DB and are therefore not using any API for the yoga content.
 
 ## Get an account 
-You can simply register as a new user by typing any email (it doesn't need to be a real email address you can also use test@test.com) and a password. The password will be encrypted so I can't see it in the database. After you registered, feel free to use your credentials to log in again later. 
+You can simply register as a new user by typing any email (it doesn't need to be a real email address) and a password. The password will be encrypted so I can't see it in the database. After you registered, feel free to use your credentials to log in again later. 
 
 ## Deployment
 
