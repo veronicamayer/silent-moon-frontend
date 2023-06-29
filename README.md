@@ -31,6 +31,9 @@ This project is deployed on Railway:
   https://silent-moon-frontend-production.up.railway.app/
 ```
 
+## Backend
+You can find the backend [here](https://github.com/veronicamayer/silent-moon-backend)
+
 ## To Dos
 - [ ] Improve loading speed
 - [ ] CSS improvements + responsibility
