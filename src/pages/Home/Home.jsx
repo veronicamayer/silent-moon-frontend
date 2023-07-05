@@ -1,6 +1,7 @@
 // --------------------------------------------- IMPORT PACKAGES
 import { useState, useEffect } from "react";
 import { userState } from "../../state/userState";
+// --------------------------------------------- IMPORT HOOKS
 import { useFetchData } from "../../hooks/fetchData";
 // --------------------------------------------- IMPORT COMPONENTS
 import Navigation from "../../components/Navigation/Navigation";
