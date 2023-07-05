@@ -9,7 +9,6 @@ import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 const RandomHome = ({ videos, playlists }) => {
     const [randomVideo, setRandomVideo] = useState();
     const [randomMeditation, setRandomMeditation] = useState();
-    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const randomIndex = Math.floor(Math.random() * videos.length);
@@ -19,17 +18,11 @@ const RandomHome = ({ videos, playlists }) => {
             Math.random() * playlists.length
         );
         setRandomMeditation(playlists[randomPlaylistIndex]);
-
-        setIsLoading(false);
     }, [videos, playlists]);
-
-    if (isLoading) {
-        return <LoadingSpinner />;
-    }
 
     return (
         <article id="randomSuggestions">
-            {randomMeditation && (
+            {randomMeditation ? (
                 <Link to={`/meditatedetails/${randomMeditation.id}`}>
                     <img src={randomMeditation.images[0].url} alt="" />
 
@@ -41,8 +34,10 @@ const RandomHome = ({ videos, playlists }) => {
                     </p>
                     <p className="textSmall uppercase light">Start</p>
                 </Link>
+            ) : (
+                <div className="placeholder"></div>
             )}
-            {randomVideo && (
+            {randomVideo ? (
                 <Link to={`/yogadetails/${randomVideo._id}`}>
                     <video controls={false}>
                         <source src={randomVideo.url} />
@@ -58,6 +53,8 @@ const RandomHome = ({ videos, playlists }) => {
                     </p>
                     <p className="textSmall uppercase light">Start</p>
                 </Link>
+            ) : (
+                <div className="placeholder"></div>
             )}
         </article>
     );

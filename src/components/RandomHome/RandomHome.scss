@@ -4,6 +4,21 @@
     padding: 0 4.5%;
     margin-bottom: 5%;
 
+    div {
+        width: 43.5vw;
+        height: 23vh;
+        border-radius: 10px;
+        background-color: hsl(220, 31%, 94%);
+        /* Make background pulse so it looks kinda load-y */
+        animation: loading 0.8s infinite alternate;
+    }
+
+    @keyframes loading {
+        to {
+            background-color: hsla(225, 10%, 84%, 0.712);
+        }
+    }
+
     a {
         position: relative;
         overflow: hidden;
