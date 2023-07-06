@@ -1,11 +1,14 @@
-.reminder {
+#reminder {
     text-align: center;
-    padding: 10% 0;
 
     h2 {
-        margin-top: 10%;
+        margin-top: 5%;
         text-align: left;
         padding: 5%;
+    }
+
+    h2:nth-of-type(2) {
+        margin-top: 10%;
     }
 
     .textSmall {
@@ -22,10 +25,21 @@
     .flex {
         display: flex;
         flex-direction: column;
-        margin-top: 5%;
+        margin-top: 15%;
 
         a {
             margin: 0 5% 5% 5%;
+        }
+    }
+}
+
+@media screen and (min-width: 576px) {
+    #reminder {
+        h2 {
+            margin-top: 0;
+        }
+        h2:nth-of-type(2) {
+            margin-top: 5%;
         }
     }
 }

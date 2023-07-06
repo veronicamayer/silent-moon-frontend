@@ -1,5 +1,7 @@
 // --------------------------------------------- IMPORT PACKAGES
 import { useState } from "react";
+// --------------------------------------------- IMPORT HOOKS
+import { useFetchData } from "../../hooks/fetchData";
 // --------------------------------------------- IMPORT ZUSTAND
 import { userState } from "../../state/userState";
 // --------------------------------------------- IMPORT COMPONENTS
@@ -9,8 +11,10 @@ import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 // --------------------------------------------- IMPORT CSS
 import "./UserProfile.scss";
 
-const UserProfile = ({ showOverlay, favoriteVideos, favoritePlaylists }) => {
+const UserProfile = () => {
     const [searchQuery, setSearchQuery] = useState("");
+
+    const { showOverlay, favoriteVideos, favoritePlaylists } = useFetchData();
 
     const user = userState((state) => state.user);
 

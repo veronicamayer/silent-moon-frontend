@@ -43,7 +43,7 @@ const Reminder = () => {
     };
 
     return (
-        <section className="reminder">
+        <section id="reminder">
             <p className="logo">SILENT MOON</p>
             <h2 className="heading2">What time would you like to meditate?</h2>
             <p className="textSmall">

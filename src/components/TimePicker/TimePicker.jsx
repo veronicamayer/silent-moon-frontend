@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./TimePicker.scss";
 
-const TimePicker = (props) => {
+const TimePicker = ({ setSelectedTime }) => {
     const [selectedHour, setSelectedHour] = useState(null);
     const [selectedMinute, setSelectedMinute] = useState(null);
     const [selectedPeriod, setSelectedPeriod] = useState(null);
@@ -66,7 +66,7 @@ const TimePicker = (props) => {
             selectedPeriod !== null
         ) {
             const formattedTime = `${selectedHour}:${selectedMinute} ${selectedPeriod}`;
-            props.setSelectedTime(formattedTime);
+            setSelectedTime(formattedTime);
         }
     }, [selectedHour, selectedMinute, selectedPeriod]);
 
