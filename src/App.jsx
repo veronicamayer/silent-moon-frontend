@@ -3,8 +3,6 @@ import { Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 // --------------------------------------------- IMPORT ZUSTAND
 import { userState } from "./state/userState";
-// --------------------------------------------- IMPORT HOOKS
-import { useFetchData } from "./hooks/fetchData";
 // --------------------------------------------- IMPORT PAGES
 import Start from "./pages/Start/Start";
 import Login from "./pages/Login/Login";
@@ -27,13 +25,6 @@ import "./App.scss";
 function App() {
     // --------------------------------------------- CONST VARIABLES
     const setUser = userState((state) => state.setUser);
-    const {
-        videos,
-        playlists,
-        showOverlay,
-        favoriteVideos,
-        favoritePlaylists,
-    } = useFetchData();
 
     // --------------------------------------------- USE EFFECTS
     useEffect(() => {
@@ -71,37 +62,15 @@ function App() {
                     <Route element={<ProtectRoutes />}>
                         <Route path="/welcome" element={<Welcome />} />
                         <Route path="/reminder" element={<Reminder />} />
-                        <Route
-                            path="/home"
-                            element={
-                                <Home
-                                    videos={videos}
-                                    playlists={playlists}
-                                    showOverlay={showOverlay}
-                                />
-                            }
-                        />
-                        <Route
-                            path="/yoga"
-                            element={
-                                <YogaOverview
-                                    videos={videos}
-                                    favoriteVideos={favoriteVideos}
-                                />
-                            }
-                        />
+                        <Route path="/home" element={<Home />} />
+                        <Route path="/yoga" element={<YogaOverview />} />
                         <Route
                             path="/yogadetails/:videoId"
                             element={<YogaDetails />}
                         />
                         <Route
                             path="/meditate"
-                            element={
-                                <MeditationOverview
-                                    playlists={playlists}
-                                    favoritePlaylists={favoritePlaylists}
-                                />
-                            }
+                            element={<MeditationOverview />}
                         />
                         <Route
                             path="/meditatedetails/:playlistId"
@@ -112,16 +81,7 @@ function App() {
                             element={<SpotifyStart />}
                         />
                         <Route path="/music" element={<MusicOverview />} />
-                        <Route
-                            path="/profile"
-                            element={
-                                <UserProfile
-                                    showOverlay={showOverlay}
-                                    favoriteVideos={favoriteVideos}
-                                    favoritePlaylists={favoritePlaylists}
-                                />
-                            }
-                        />
+                        <Route path="/profile" element={<UserProfile />} />
                     </Route>
                 </Routes>
             </div>

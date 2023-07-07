@@ -8,11 +8,9 @@ import "./RandomHome.scss";
 // --------------------------------------------- IMPORT COMPONENTS
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
-const RandomHome = () => {
+const RandomHome = ({ videos, playlists }) => {
     const [randomVideo, setRandomVideo] = useState();
     const [randomMeditation, setRandomMeditation] = useState();
-
-    const { videos, playlists } = useFetchData();
 
     useEffect(() => {
         const randomIndex = Math.floor(Math.random() * videos.length);
