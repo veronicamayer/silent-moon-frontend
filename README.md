@@ -22,9 +22,8 @@ You can simply register as a new user by typing any email (it doesn't need to be
 
 This project is deployed on Vercel:
 
-```bash
-  https://silent-moon-frontend.vercel.app/
-```
+### [https://silent-moon-frontend.vercel.app/](https://silent-moon-frontend.vercel.app/) 
+
 
 ## Backend
 You can find the backend [here](https://github.com/veronicamayer/silent-moon-backend)
